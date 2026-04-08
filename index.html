@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>さち算数オンライン教室 | スポット授業（単発・1回）受付中</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:         #f5f8ff;
+      --white:      #ffffff;
+      --blue:       #1a56b0;
+      --blue-mid:   #2a6dd4;
+      --blue-light: #d6e6ff;
+      --blue-pale:  #eef4ff;
+      --navy:       #0f2d5e;
+      --navy-mid:   #1a3f6b;
+      --text:       #0c1f3d;
+      --text-mid:   #3a5070;
+      --text-light: #7a95b8;
+      --border:     #c4d8f0;
+      --teal:       #1a7a9a;
+      --teal-light: #e0f4f8;
+      --open-bg:    #e8f5e9;
+      --open-text:  #2e7d32;
+      --open-border:#a5d6a7;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Noto Sans JP', sans-serif; background: var(--bg); color: var(--text); line-height: 1.85; }
+
+    /* ===== NAV ===== */
+    header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.97); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 5%;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .logo { font-family: 'Noto Serif JP', serif; font-size: 1.05rem; font-weight: 700; color: var(--navy); }
+    .logo span { color: var(--blue); }
+    nav { display: flex; gap: 24px; align-items: center; }
+    nav a { font-size: 0.82rem; color: var(--text-mid); text-decoration: none; font-weight: 500; transition: color 0.2s; }
+    nav a:hover { color: var(--blue); }
+    .nav-cta {
+      background: var(--blue); color: white !important;
+      padding: 8px 20px; border-radius: 30px;
+      font-weight: 700 !important; transition: background 0.2s !important;
+    }
+    .nav-cta:hover { background: var(--navy-mid) !important; }
+
+    /* ===== SPOT STATUS BANNER ===== */
+    /* ★ここを編集して受付状況を切り替えてください★
+       .banner-open  → 受付中のとき表示
+       .banner-closed → 停止中のとき表示
+       display:flex / display:none で切り替え */
+    .banner-open {
+      display: flex;
+      background: var(--open-bg);
+      border-bottom: 1px solid var(--open-border);
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 10px 5%;
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--open-text);
+    }
+    .banner-open .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--open-text); animation: blink 1.4s infinite; }
+    .banner-closed {
+      display: none; /* 停止中のときは display:flex に変更 */
+      background: #fce4ec;
+      border-bottom: 1px solid #f48fb1;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 10px 5%;
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: #c62828;
+    }
+    .banner-open a, .banner-closed a { color: inherit; text-decoration: underline; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+    /* ===== HERO ===== */
+    .hero-wrap {
+      position: relative; min-height: 88vh;
+      display: flex; align-items: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, #0f2d5e 0%, #1a56b0 60%, #2a6dd4 100%);
+    }
+    .hero-bg::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(10,30,80,0.55) 0%, rgba(20,60,140,0.35) 100%);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 1060px;
+      margin: 0 auto;
+      padding: 80px 5%;
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 60px;
+      align-items: center;
+      width: 100%;
+    }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.35);
+      border-radius: 30px; padding: 4px 16px; font-family: 'Noto Serif JP', serif;
+      font-size: 0.78rem; font-weight: 700; color: rgba(255,255,255,0.9);
+      letter-spacing: 0.1em; margin-bottom: 20px; backdrop-filter: blur(4px);
+    }
+    h1.hero {
+      font-family: 'Noto Serif JP', serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 700;
+      line-height: 1.28;
+      letter-spacing: 0.02em;
+      color: #ffffff;
+      margin-bottom: 14px;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.4);
+    }
+    h1.hero em { font-style: normal; color: #8ecfff; }
+    .hero-lead {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.88);
+      margin-bottom: 32px;
+      max-width: 520px;
+      line-height: 1.9;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.3);
+    }
+    .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+    .btn-main {
+      background: var(--blue); color: white;
+      padding: 14px 32px; border-radius: 40px;
+      text-decoration: none; font-weight: 700; font-size: 0.95rem;
+      box-shadow: 0 4px 24px rgba(26,86,176,0.55);
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-main:hover { background: var(--navy-mid); transform: translateY(-2px); }
+    .btn-main small { display: block; font-size: 0.8rem; font-weight: 500; opacity: 0.9; margin-top: 2px; }
+    .btn-sub {
+      background: rgba(255,255,255,0.12); color: white;
+      padding: 14px 28px; border-radius: 40px;
+      text-decoration: none; font-weight: 700; font-size: 0.9rem;
+      border: 2px solid rgba(255,255,255,0.4); backdrop-filter: blur(4px);
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-sub:hover { background: rgba(255,255,255,0.2); transform: translateY(-2px); }
+
+    /* Hero card */
+    .hero-card {
+      background: rgba(255,255,255,0.97); border-radius: 24px;
+      padding: 28px 24px; box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      border: 1px solid var(--border);
+    }
+    .hero-card-head {
+      font-family: 'Noto Serif JP', serif; font-size: 0.88rem;
+      font-weight: 700; color: var(--navy); margin-bottom: 16px;
+      padding-bottom: 12px; border-bottom: 1px solid var(--border);
+    }
+    .card-row {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      padding: 9px 0; border-bottom: 1px solid var(--blue-pale); font-size: 0.84rem;
+    }
+    .card-row:last-child { border-bottom: none; }
+    .card-label { color: var(--text-light); font-size: 0.76rem; flex: 0 0 56px; }
+    .card-val { color: var(--text-mid); font-weight: 500; text-align: right; }
+    .card-val strong { color: var(--navy); font-size: 1.05rem; }
+    .hero-status-box {
+      margin-top: 14px; background: var(--open-bg); border: 1px solid var(--open-border);
+      border-radius: 10px; padding: 10px 14px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    /* 停止中にするとき: background:#fce4ec; border-color:#f48fb1; */
+    .hero-status-label { font-size: 0.75rem; color: var(--text-light); }
+    .status-open {
+      display: inline-flex; align-items: center; gap: 5px;
+      background: var(--open-bg); color: var(--open-text); border: 1px solid var(--open-border);
+      font-size: 0.78rem; font-weight: 700; padding: 2px 10px; border-radius: 20px;
+    }
+    .status-open::before { content: '●'; font-size: 0.45rem; animation: blink 1.4s infinite; }
+    .status-closed {
+      display: inline-flex; align-items: center; gap: 5px;
+      background: #fce4ec; color: #c62828; border: 1px solid #f48fb1;
+      font-size: 0.78rem; font-weight: 700; padding: 2px 10px; border-radius: 20px;
+    }
+    .status-closed::before { content: '●'; font-size: 0.45rem; }
+
+    /* ===== SECTION BASE ===== */
+    section { padding: 80px 5%; }
+    .inner { max-width: 960px; margin: 0 auto; }
+    .sec-tag {
+      display: inline-block; background: var(--blue-pale); color: var(--blue);
+      border-radius: 20px; padding: 3px 14px;
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; margin-bottom: 10px;
+    }
+    .sec-title {
+      font-family: 'Noto Serif JP', serif;
+      font-size: clamp(1.3rem, 2.5vw, 1.85rem);
+      font-weight: 700; color: var(--navy); margin-bottom: 12px;
+    }
+    .sec-sub { font-size: 0.9rem; color: var(--text-mid); margin-bottom: 40px; max-width: 560px; }
+
+    /* ===== SPOT MAIN ===== */
+    .spot-main { background: white; }
+    .spot-main-card {
+      background: linear-gradient(135deg, var(--blue-pale) 0%, #fff 60%);
+      border-radius: 24px; border: 2px solid var(--blue);
+      padding: 48px;
+      box-shadow: 0 8px 40px rgba(26,86,176,0.1);
+    }
+    .spot-main-top {
+      display: grid; grid-template-columns: 1fr auto;
+      gap: 32px; align-items: start; margin-bottom: 36px;
+    }
+    .spot-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--blue); color: white;
+      border-radius: 30px; padding: 4px 16px;
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; margin-bottom: 14px;
+    }
+    .spot-main-title {
+      font-family: 'Noto Serif JP', serif; font-size: 1.5rem;
+      font-weight: 700; color: var(--navy); margin-bottom: 10px;
+    }
+    .spot-main-desc {
+      font-size: 0.9rem; color: var(--text-mid); line-height: 1.8; margin-bottom: 20px; max-width: 480px;
+    }
+    .spot-meta-row {
+      display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 20px;
+    }
+    .spot-meta-item { font-size: 0.83rem; color: var(--text-light); }
+    .spot-meta-item strong { color: var(--navy); }
+    .spot-price-block { text-align: center; }
+    .spot-price { font-family: 'Noto Serif JP', serif; font-size: 2.8rem; font-weight: 700; color: var(--blue); line-height: 1; }
+    .spot-price-sub { font-size: 0.75rem; color: var(--text-light); margin-bottom: 20px; margin-top: 4px; }
+    .spot-apply-btn {
+      display: block; background: var(--blue); color: white;
+      padding: 15px 32px; border-radius: 40px;
+      text-decoration: none; font-weight: 700; font-size: 0.92rem;
+      box-shadow: 0 4px 24px rgba(26,86,176,0.4);
+      transition: background 0.2s, transform 0.2s; text-align: center; white-space: nowrap;
+    }
+    .spot-apply-btn:hover { background: var(--navy-mid); transform: translateY(-2px); }
+    .spot-status-row {
+      display: flex; align-items: center; gap: 12px;
+      background: var(--open-bg); border: 1px solid var(--open-border);
+      border-radius: 12px; padding: 14px 20px; margin-bottom: 28px;
+    }
+    /* 停止中: background:#fce4ec; border-color:#f48fb1; */
+    .spot-status-label { font-size: 0.82rem; color: var(--text-mid); font-weight: 700; }
+    .spot-status-note { font-size: 0.78rem; color: var(--text-light); margin-left: auto; }
+
+    .spot-points {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 8px;
+    }
+    .spot-point-item {
+      background: white; border: 1px solid var(--border);
+      border-radius: 14px; padding: 18px 16px;
+    }
+    .spot-point-icon { font-size: 1.4rem; margin-bottom: 8px; }
+    .spot-point-title { font-family: 'Noto Serif JP', serif; font-size: 0.88rem; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+    .spot-point-text { font-size: 0.8rem; color: var(--text-mid); line-height: 1.65; }
+
+    /* ===== ABOUT ===== */
+    .about { background: var(--bg); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0;
+      align-items: start;
+    }
+    .about-name { font-family: 'Noto Serif JP', serif; font-size: 1.6rem; color: var(--navy); margin-bottom: 4px; }
+    .about-role { font-size: 0.82rem; color: var(--blue); font-weight: 700; letter-spacing: 0.06em; margin-bottom: 20px; }
+    .about-bio { font-size: 0.9rem; color: var(--text-mid); margin-bottom: 24px; }
+    .about-bio p { margin-bottom: 10px; }
+    .career-list { list-style: none; margin-bottom: 24px; }
+    .career-list li {
+      font-size: 0.85rem; color: var(--text-mid);
+      padding: 6px 0 6px 20px; position: relative; border-bottom: 1px dashed var(--border);
+    }
+    .career-list li::before { content: '▸'; position: absolute; left: 0; color: var(--blue); font-size: 0.8rem; }
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .tag { background: var(--blue-pale); border: 1px solid var(--border); border-radius: 20px; padding: 4px 14px; font-size: 0.78rem; color: var(--text-mid); }
+
+    /* ===== HOW ===== */
+    .how { background: white; }
+    .how-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+    .how-img { border-radius: 20px; overflow: hidden; box-shadow: 0 8px 32px rgba(15,45,94,0.12); }
+    .how-img img { width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block; }
+    .how-steps { display: flex; flex-direction: column; gap: 20px; }
+    .step-item { display: flex; gap: 18px; align-items: flex-start; }
+    .step-num-circle {
+      flex-shrink: 0; width: 36px; height: 36px; border-radius: 50%;
+      background: var(--blue); color: white;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Noto Serif JP', serif; font-size: 0.9rem; font-weight: 700;
+    }
+    .step-title { font-family: 'Noto Serif JP', serif; font-size: 0.95rem; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+    .step-text { font-size: 0.84rem; color: var(--text-mid); line-height: 1.7; }
+
+    /* ===== FLOW ===== */
+    .flow { background: var(--blue-pale); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .flow-timeline {
+      position: relative;
+      display: flex; flex-direction: column; gap: 0;
+      max-width: 640px;
+    }
+    .flow-timeline::before {
+      content: '';
+      position: absolute; left: 20px; top: 28px; bottom: 28px;
+      width: 2px; background: var(--border);
+    }
+    .flow-item {
+      display: flex; gap: 20px; align-items: flex-start;
+      padding: 0 0 32px 0; position: relative;
+    }
+    .flow-item:last-child { padding-bottom: 0; }
+    .flow-circle {
+      flex-shrink: 0; width: 42px; height: 42px; border-radius: 50%;
+      background: var(--blue); color: white;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Noto Serif JP', serif; font-size: 0.85rem; font-weight: 700;
+      position: relative; z-index: 1;
+      box-shadow: 0 0 0 4px var(--blue-pale);
+    }
+    .flow-body { padding-top: 8px; }
+    .flow-time {
+      display: inline-block; font-size: 0.7rem; font-weight: 700;
+      color: var(--blue); background: var(--blue-pale);
+      border: 1px solid var(--blue-light); border-radius: 20px;
+      padding: 1px 10px; margin-bottom: 6px; letter-spacing: 0.06em;
+    }
+    .flow-title { font-family: 'Noto Serif JP', serif; font-size: 0.97rem; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+    .flow-text { font-size: 0.84rem; color: var(--text-mid); line-height: 1.75; }
+    .flow-note {
+      margin-top: 32px; background: white; border: 1px solid var(--border);
+      border-radius: 14px; padding: 16px 20px;
+      font-size: 0.82rem; color: var(--text-mid); line-height: 1.8;
+    }
+    .flow-note strong { color: var(--navy); }
+
+    /* ===== TARGET ===== */
+    .target { background: var(--navy); }
+    .target .sec-tag { background: rgba(255,255,255,0.15); color: rgba(255,255,255,0.85); }
+    .target .sec-title { color: white; }
+    .target-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+    .target-card { padding: 0; }
+    .target-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .target-list li {
+      font-size: 0.88rem; color: rgba(255,255,255,0.85);
+      padding: 12px 16px 12px 40px; position: relative;
+      background: rgba(255,255,255,0.07); border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.1); line-height: 1.7;
+    }
+    .target-list li::before { content: '✦'; position: absolute; left: 14px; color: #8ecfff; font-size: 0.6rem; top: 15px; }
+    .target-card-strength { border-left: 1px solid rgba(255,255,255,0.15); padding-left: 40px; }
+    .target-text { font-size: 0.92rem; color: rgba(255,255,255,0.82); line-height: 2; }
+
+    @media (max-width: 768px) {
+      .target-grid { grid-template-columns: 1fr; }
+      .target-card-strength { border-left: none; border-top: 1px solid rgba(255,255,255,0.15); padding-left: 0; padding-top: 32px; }
+    }
+
+    /* ===== ACHIEVEMENTS ===== */
+    .achievements { background: var(--bg); }
+    .achievements-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .achievements-card { background: white; border: 1px solid var(--border); border-radius: 18px; overflow: hidden; }
+    .achievements-card-head {
+      background: var(--blue-pale); padding: 14px 20px;
+      font-family: 'Noto Serif JP', serif; font-size: 0.9rem; font-weight: 700;
+      color: var(--navy); border-bottom: 1px solid var(--border);
+    }
+    .achievements-list { padding: 16px 20px; display: flex; flex-direction: column; gap: 4px; }
+    .achievements-item {
+      font-size: 0.88rem; color: var(--text-mid);
+      padding: 7px 0 7px 16px; position: relative;
+      border-bottom: 1px solid var(--blue-pale);
+    }
+    .achievements-item:last-child { border-bottom: none; }
+    .achievements-item::before { content: '✦'; position: absolute; left: 0; color: var(--blue); font-size: 0.6rem; top: 10px; }
+
+    @media (max-width: 768px) {
+      .achievements-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ===== FAQ ===== */
+    .faq { background: var(--bg); }
+    .faq-list { display: flex; flex-direction: column; gap: 12px; }
+    .faq-item { background: white; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; }
+    .faq-q {
+      display: flex; align-items: flex-start; gap: 14px;
+      padding: 18px 22px; cursor: pointer;
+      font-size: 0.9rem; font-weight: 700; color: var(--navy);
+      user-select: none;
+    }
+    .faq-q-mark {
+      flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%;
+      background: var(--blue); color: white;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.78rem; font-weight: 700; margin-top: 1px;
+    }
+    .faq-q-text { flex: 1; }
+    .faq-arrow { flex-shrink: 0; color: var(--text-light); transition: transform 0.25s; font-size: 0.75rem; margin-top: 4px; }
+    .faq-item.open .faq-arrow { transform: rotate(180deg); }
+    .faq-a {
+      display: none; padding: 0 22px 18px 62px;
+      font-size: 0.86rem; color: var(--text-mid); line-height: 1.8;
+    }
+    .faq-item.open .faq-a { display: block; }
+
+    /* ===== DETAIL ===== */
+    .detail { background: white; }
+    .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .detail-card { border: 1px solid var(--border); border-radius: 18px; overflow: hidden; }
+    .detail-card-head {
+      background: var(--blue-pale); padding: 14px 20px;
+      font-family: 'Noto Serif JP', serif; font-size: 0.9rem; font-weight: 700;
+      color: var(--navy); border-bottom: 1px solid var(--border);
+    }
+    .detail-body { padding: 20px; }
+    .detail-row { display: flex; gap: 14px; align-items: flex-start; padding: 8px 0; border-bottom: 1px solid var(--blue-pale); font-size: 0.86rem; }
+    .detail-row:last-child { border-bottom: none; }
+    .dl { color: var(--text-light); flex: 0 0 72px; font-size: 0.78rem; padding-top: 2px; }
+    .dd { color: var(--text-mid); }
+    .dd strong { color: var(--navy); }
+
+    /* ===== LINKS ===== */
+    .links { background: var(--bg); }
+    .links-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .link-card {
+      background: white; border-radius: 18px; padding: 28px 24px;
+      border: 1px solid var(--border); text-decoration: none; display: block;
+      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    }
+    .link-card:hover { transform: translateY(-4px); box-shadow: 0 8px 28px rgba(15,45,94,0.1); border-color: var(--blue); }
+    .link-icon { font-size: 1.8rem; margin-bottom: 12px; }
+    .link-name { font-family: 'Noto Serif JP', serif; font-size: 0.95rem; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+    .link-desc { font-size: 0.82rem; color: var(--text-mid); line-height: 1.65; }
+    .link-arrow { margin-top: 14px; font-size: 0.8rem; color: var(--blue); font-weight: 700; }
+
+    /* ===== CTA ===== */
+    .cta { position: relative; text-align: center; overflow: hidden; }
+    .cta-bg {
+      position: absolute; inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1509228468518-180dd4864904?w=1400&q=80');
+      background-size: cover; background-position: center;
+      filter: brightness(0.2) saturate(0.7);
+    }
+    .cta-bg::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(10,30,80,0.7) 0%, rgba(20,60,140,0.5) 100%);
+    }
+    .cta-inner { position: relative; z-index: 2; padding: 100px 5%; }
+    .cta .sec-tag { background: rgba(255,255,255,0.15); color: rgba(255,255,255,0.85); border: none; }
+    .cta .sec-title { color: white; margin-bottom: 16px; }
+    .cta-sub { color: rgba(255,255,255,0.75); font-size: 0.94rem; margin-bottom: 8px; line-height: 1.9; }
+    .cta-note { color: rgba(255,255,255,0.5); font-size: 0.78rem; margin-bottom: 36px; }
+    .cta-btns { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; margin-bottom: 36px; }
+    .btn-white {
+      background: white; color: var(--navy);
+      padding: 16px 40px; border-radius: 40px;
+      text-decoration: none; font-weight: 700; font-size: 0.95rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2); transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,0.3); }
+    .contact-links { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; }
+    .contact-link { color: rgba(255,255,255,0.62); font-size: 0.83rem; text-decoration: none; transition: color 0.2s; }
+    .contact-link:hover { color: white; }
+
+    /* ===== FOOTER ===== */
+    footer { background: var(--navy); color: rgba(255,255,255,0.45); text-align: center; padding: 36px 20px; font-size: 0.78rem; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      header { padding: 12px 4%; }
+      nav a:not(.nav-cta) { display: none; }
+      .hero-content { grid-template-columns: 1fr; padding: 48px 5%; gap: 36px; }
+      .spot-main-top { grid-template-columns: 1fr; }
+      .spot-price-block { text-align: left; }
+      .spot-points { grid-template-columns: 1fr; }
+      .how-grid { grid-template-columns: 1fr; }
+      .detail-grid { grid-template-columns: 1fr; }
+      .links-grid { grid-template-columns: 1fr; }
+    }
+
+    @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+    .hero-text-anim { animation: fadeUp 0.7s ease both; }
+    .hero-card-anim { animation: fadeUp 0.7s 0.15s ease both; }
+  </style>
+</head>
+<body>
+
+<!-- ★ 受付状況バナー（上部） ===========================
+  受付中  → .banner-open を display:flex、.banner-closed を display:none
+  停止中  → .banner-open を display:none、 .banner-closed を display:flex
+  ===================================================== -->
+<div class="banner-open">
+  <div class="dot"></div>
+  スポット授業、現在受付中です。&nbsp;
+  <a href="https://forms.gle/441G21EGX6jaeGBL6" target="_blank">お申し込みはこちら →</a>
+</div>
+<div class="banner-closed">
+  <span>●</span>
+  スポット授業は現在受付停止中です。次の空きが出次第、このページで告知します。
+</div>
+
+<!-- NAV -->
+<header>
+  <div class="logo">さち<span>算数</span>オンライン教室</div>
+  <nav>
+    <a href="#spot">スポット授業</a>
+    <a href="#about">プロフィール</a>
+    <a href="#flow">申込みの流れ</a>
+    <a href="#faq">よくある質問</a>
+    <a href="#contact" class="nav-cta">申し込む</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<div class="hero-wrap">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-text-anim">
+      <div class="hero-eyebrow">中学受験算数専門 ｜ オンライン個別指導</div>
+      <h1 class="hero">
+        算数の「<em>なぜ？</em>」を、<br>
+        一つずつ整理する。
+      </h1>
+      <p class="hero-lead">
+        Zoomとオンラインホワイトボードを使った双方向の個別指導です。<br>
+        スポット授業（単発・1回）受付中。
+      </p>
+      <div class="hero-btns">
+        <a href="https://lin.ee/kyzOeI2" target="_blank" class="btn-main apply-btn">
+          申し込む（LINEへ）→
+        </a>
+        <a href="#about" class="btn-sub">先生を知る →</a>
+      </div>
+    </div>
+
+    <div class="hero-card hero-card-anim">
+      <div class="hero-card-head">📋 スポット授業 概要</div>
+      <div class="card-row">
+        <span class="card-label">料金</span>
+        <span class="card-val"><strong>¥6,000</strong></span>
+      </div>
+      <div class="card-row">
+        <span class="card-label">時間</span>
+        <span class="card-val"><strong>45分</strong>・1回完結</span>
+      </div>
+      <div class="card-row">
+        <span class="card-label">対象</span>
+        <span class="card-val">小学生（中学受験算数）</span>
+      </div>
+      <div class="card-row">
+        <span class="card-label">形式</span>
+        <span class="card-val">Zoom＋オンラインホワイトボード</span>
+      </div>
+      <div class="card-row">
+        <span class="card-label">契約</span>
+        <span class="card-val">定期契約なし・縛りなし</span>
+      </div>
+      <!-- ★ 受付状況: status-open / status-closed を切り替える -->
+      <div class="hero-status-box">
+        <span class="hero-status-label">現在の受付状況</span>
+        <span class="status-open">受付中</span>
+        <!-- 停止中のとき: <span class="status-closed">受付停止中</span> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SPOT MAIN -->
+<section class="spot-main" id="spot">
+  <div class="inner">
+    <div class="sec-tag">SPOT LESSON</div>
+    <h2 class="sec-title">スポット授業について</h2>
+    <p class="sec-sub">単発・1回完結の授業です。苦手な単元だけ、気になったときだけ、お気軽にどうぞ。</p>
+
+    <div class="spot-main-card">
+      <!-- 受付状況 -->
+      <div class="spot-status-row">
+        <span class="status-open">● 受付中</span>
+        <!-- 停止中: <span class="status-closed">● 受付停止中</span> -->
+        <span class="spot-status-label">スポット授業の空きが出たため、現在お申し込みを受け付けています。</span>
+        <!-- 停止中: 「現在は満席です。空きが出次第このページでお知らせします。」 -->
+        <span class="spot-status-note">※ 状況は随時更新</span>
+      </div>
+
+      <div class="spot-main-top">
+        <div>
+          <div class="spot-badge">📚 単発・1回完結</div>
+          <div class="spot-main-title">スポット授業（45分）</div>
+          <div class="spot-main-desc">
+            どんな先生か試してみたい方や、特定の単元だけ教えてほしい方のための1回完結の授業です。
+          </div>
+          <div class="spot-meta-row">
+            <div class="spot-meta-item">時間：<strong>45分</strong></div>
+            <div class="spot-meta-item">対象：<strong>小学生（中学受験算数）</strong></div>
+            <div class="spot-meta-item">形式：<strong>Zoom＋オンラインホワイトボード</strong></div>
+          </div>
+        </div>
+        <div class="spot-price-block">
+          <div class="spot-price">¥6,000</div>
+          <div class="spot-price-sub">/ 45分・1回</div>
+          <a href="https://lin.ee/kyzOeI2" target="_blank" class="spot-apply-btn apply-btn">申し込む（LINEへ）→</a>
+        </div>
+      </div>
+
+      <div class="spot-points">
+        <div class="spot-point-item">
+          <div class="spot-point-icon">🔓</div>
+          <div class="spot-point-title">定期契約なし</div>
+          <div class="spot-point-text">1回きりでも大丈夫です。「続けたい」と思ったときに定期指導へ移行できます。</div>
+        </div>
+        <div class="spot-point-item">
+          <div class="spot-point-icon">🎯</div>
+          <div class="spot-point-title">単元ピンポイントOK</div>
+          <div class="spot-point-text">「速さが苦手」「比の問題だけ」など、1回分を特定の単元に絞ることもできます。</div>
+        </div>
+        <div class="spot-point-item">
+          <div class="spot-point-icon">💬</div>
+          <div class="spot-point-title">事前相談無料</div>
+          <div class="spot-point-text">お子さんの状況や、どんな授業になるかを事前にLINEでご確認いただけます。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TARGET -->
+<section class="target" id="target">
+  <div class="inner">
+    <div class="target-grid">
+      <div class="target-card">
+        <div class="sec-tag">FOR YOU</div>
+        <h2 class="sec-title">こんな方におすすめです</h2>
+        <ul class="target-list">
+          <li>オンライン授業が初めてで、まず1回だけ試してみたい</li>
+          <li>海外在住で、日本の中学受験算数をオンラインで教えてほしい</li>
+          <li>6年生なのに基礎が抜けている、個別でじっくり見てほしい</li>
+          <li>頑張っているのに点数が伸びない、原因を一緒に探ってほしい</li>
+        </ul>
+      </div>
+      <div class="target-card target-card-strength">
+        <div class="sec-tag">STRENGTH</div>
+        <h2 class="sec-title">得意な指導</h2>
+        <p class="target-text">算数が苦手な子、頑張っているのに結果が出ない子を多く指導してきました。「なぜ解けないのか」を一緒に探り、その子に合った「解けるようになる道筋」を提案することを大切にしています。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="inner">
+    <div class="about-grid">
+      <div>
+        <div class="sec-tag">PROFILE</div>
+        <div class="about-name">さち</div>
+        <div class="about-role">中学受験算数・中学数学 オンライン指導者 ／ 計算くらぶ 講師</div>
+        <div class="about-bio">
+          <p>地方公立高校出身→大阪大学工学部卒。卒業後は金融機関でシステム開発に従事しながら、学生時代から続けていた家庭教師と個別指導塾での指導を継続。夫の海外転勤を機に2015年からオンライン家庭教師を本格スタートし、中学受験算数を中心に指導歴11年目を迎えました。</p>
+          <p>現在は5歳・7歳の2児の母として子育て中。「先生としての視点」と「親としての視点」を両方もつことで、保護者の方の悩みや不安に寄り添った指導を大切にしています。</p>
+        </div>
+        <ul class="career-list">
+          <li>大阪大学 工学部 卒業</li>
+          <li>金融機関 システム開発職（家庭教師・個別指導塾と並行）</li>
+          <li>2015年〜 オンライン家庭教師として独立・現在11年目</li>
+          <li>中学受験ナビにて算数コラム連載（計2シリーズ）
+            <ul style="list-style:none; margin-top:6px; padding-left:4px;">
+              <li style="border:none; padding:3px 0 3px 16px;"><a href="https://katekyo.mynavi.jp/juken/rensai/sansu-kiso" target="_blank" style="color:var(--blue); font-size:0.8rem;">「中学受験算数の基礎力を伸ばす」→</a></li>
+              <li style="border:none; padding:3px 0 3px 16px;"><a href="https://katekyo.mynavi.jp/juken/rensai/math-basic" target="_blank" style="color:var(--blue); font-size:0.8rem;">「中学受験算数きほんの「き」！」→</a></li>
+            </ul>
+          </li>
+          <li>計算くらぶ 講師</li>
+        </ul>
+        <div class="tags">
+          <span class="tag">中学受験算数 専門</span>
+          <span class="tag">オンライン指導11年</span>
+          <span class="tag">2児の母（5歳・7歳）</span>
+          <span class="tag">帰国受験対応</span>
+          <span class="tag">メディア執筆実績</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACHIEVEMENTS -->
+<section class="achievements" id="achievements">
+  <div class="inner">
+    <div class="sec-tag">RESULTS</div>
+    <h2 class="sec-title">合格実績（一部）</h2>
+    <p class="sec-sub">これまでに指導した生徒さんの合格実績です。帰国受験・一般受験ともに対応しています。<br>※生徒・保護者の許可をいただき掲載しています。</p>
+    <div class="achievements-grid">
+      <div class="achievements-card">
+        <div class="achievements-card-head">🌏 帰国受験</div>
+        <div class="achievements-list">
+          <div class="achievements-item">青山学院横浜英和</div>
+          <div class="achievements-item">関東学院</div>
+          <div class="achievements-item">白百合学園</div>
+          <div class="achievements-item">逗子開成</div>
+          <div class="achievements-item">広尾学園</div>
+          <div class="achievements-item">山手学院　など</div>
+        </div>
+      </div>
+      <div class="achievements-card">
+        <div class="achievements-card-head">📝 一般受験</div>
+        <div class="achievements-list">
+          <div class="achievements-item">洗足学園</div>
+          <div class="achievements-item">山手学院</div>
+          <div class="achievements-item">西南学院</div>
+          <div class="achievements-item">筑紫女学園</div>
+          <div class="achievements-item">桐朋女子</div>
+          <div class="achievements-item">東京家政学院（特待C）</div>
+          <div class="achievements-item">宮崎日大　など</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FLOW -->
+<section class="flow" id="flow">
+  <div class="inner">
+    <div class="sec-tag">FLOW</div>
+    <h2 class="sec-title">申込みから授業までの流れ</h2>
+    <p class="sec-sub">お申し込みから授業当日まで、どんな手順で進むかをまとめました。</p>
+    <div class="flow-timeline">
+      <div class="flow-item">
+        <div class="flow-circle">01</div>
+        <div class="flow-body">
+          <div class="flow-time">申込み当日〜翌営業日</div>
+          <div class="flow-title">公式LINEに登録・メッセージを送る</div>
+          <p class="flow-text">LPの「申し込む」ボタンから公式LINEに登録してください。自動メッセージに沿って、お子さんの学年・通っている塾・相談したい単元をお送りください。</p>
+        </div>
+      </div>
+      <div class="flow-item">
+        <div class="flow-circle">02</div>
+        <div class="flow-body">
+          <div class="flow-time">内容確認後</div>
+          <div class="flow-title">さちから日程のご提案</div>
+          <p class="flow-text">いただいた内容を確認の上、空き日時をLINEでご案内します。ご希望に合わせて日程を確定します。</p>
+        </div>
+      </div>
+      <div class="flow-item">
+        <div class="flow-circle">03</div>
+        <div class="flow-body">
+          <div class="flow-time">日程確定後</div>
+          <div class="flow-title">お支払い（Stripe）</div>
+          <p class="flow-text">LINEにてStripeの支払いリンクをお送りします。クレジットカードにてお支払いをお願いします（6,000円）。</p>
+        </div>
+      </div>
+      <div class="flow-item">
+        <div class="flow-circle">04</div>
+        <div class="flow-body">
+          <div class="flow-time">授業前日まで</div>
+          <div class="flow-title">環境・機材の準備</div>
+          <p class="flow-text">Zoom接続用の端末（PC・スマホ等）と、タブレット＋タッチペンをご用意ください。ZoomリンクはLINEにてお送りします。</p>
+        </div>
+      </div>
+      <div class="flow-item">
+        <div class="flow-circle">05</div>
+        <div class="flow-body">
+          <div class="flow-time">当日</div>
+          <div class="flow-title">Zoomで授業スタート（45分）</div>
+          <p class="flow-text">ZoomリンクからPCで入室。タブレットでオンラインホワイトボードを開いて授業開始です。お子さんのペースに合わせて進めます。</p>
+        </div>
+      </div>
+      <div class="flow-item">
+        <div class="flow-circle">06</div>
+        <div class="flow-body">
+          <div class="flow-time">授業後</div>
+          <div class="flow-title">資料・宿題をお届け</div>
+          <p class="flow-text">授業内容のPDFと宿題をLINEでお送りします。定期指導をご希望の場合は、空き状況に応じてご案内します。</p>
+        </div>
+      </div>
+    </div>
+    <div class="flow-note">
+      <strong>📌 キャンセル・変更について</strong><br>
+      <strong>前日まで：</strong>日程変更は無料（1回まで）。キャンセルの場合はStripeの決済手数料（3.6%）を除いた金額を返金します。<br>
+      <strong>当日：</strong>返金はできませんが、振替対応いたします。<br>
+      <strong>さち都合のキャンセル：</strong>全額返金いたします。
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <div class="inner">
+    <div class="sec-tag">FAQ</div>
+    <h2 class="sec-title">よくある質問</h2>
+    <p class="sec-sub">スポット授業についてのご質問をまとめました。</p>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q">
+          <div class="faq-q-mark">Q</div>
+          <div class="faq-q-text">キャンセルや日程変更はできますか？</div>
+          <div class="faq-arrow">▼</div>
+        </div>
+        <div class="faq-a">
+          <strong>前日まで：</strong>日程変更は無料で承ります（1回まで）。キャンセルの場合はStripeの決済手数料（3.6%）を除いた金額を返金します。<br><br>
+          <strong>当日：</strong>返金はできませんが、振替対応いたします。<br><br>
+          ※万が一さち都合でのキャンセルとなった場合、全額返金いたします。
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">
+          <div class="faq-q-mark">Q</div>
+          <div class="faq-q-text">必要な機材・環境を教えてください。</div>
+          <div class="faq-arrow">▼</div>
+        </div>
+        <div class="faq-a">Zoom接続用の端末（PC・スマホなど）と、タブレット端末（iPad等）＋タッチペンが必要です。PCでZoomに接続しながら、タブレットでオンラインホワイトボードを使用する形が基本です。安定したインターネット環境もご確認ください。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">
+          <div class="faq-q-mark">Q</div>
+          <div class="faq-q-text">どんな単元・レベルでも対応できますか？</div>
+          <div class="faq-arrow">▼</div>
+        </div>
+        <div class="faq-a">中学受験算数（小学生対象）であれば、速さ・比・図形・場合の数など幅広く対応しています。事前のヒアリングで現在の学習状況をお聞きした上で、その1回に合った内容を準備します。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">
+          <div class="faq-q-mark">Q</div>
+          <div class="faq-q-text">スポット授業は何度でも受けられますか？</div>
+          <div class="faq-arrow">▼</div>
+        </div>
+        <div class="faq-a">はい、受けられます。スポット授業は、私のスケジュールに空きが出たタイミングで随時受け付けています。空きが出た際はこのページのバナーや公式LINEでお知らせしますので、ぜひLINE登録しておいてください。</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          <div class="faq-q-mark">Q</div>
+          <div class="faq-q-text">海外在住でも受けられますか？</div>
+          <div class="faq-arrow">▼</div>
+        </div>
+        <div class="faq-a">はい、対応しています。時差のある環境でのオンライン指導にも慣れています。帰国受験をお考えの方もお気軽にご相談ください。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DETAIL（定期指導はコンパクトに） -->
+<section class="detail" id="detail">
+  <div class="inner">
+    <div class="sec-tag">REGULAR LESSON</div>
+    <h2 class="sec-title">定期指導について</h2>
+    <p class="sec-sub">スポット授業を受けていただいた後、ご希望の方には定期指導をご案内しています。</p>
+    <div class="detail-grid">
+      <div class="detail-card">
+        <div class="detail-card-head">📚 指導内容</div>
+        <div class="detail-body">
+          <div class="detail-row"><span class="dl">対象</span><span class="dd">小学生</span></div>
+          <div class="detail-row"><span class="dl">科目</span><span class="dd">中学受験算数</span></div>
+          <div class="detail-row"><span class="dl">形式</span><span class="dd">毎週決まった曜日・時間の定期指導</span></div>
+          <div class="detail-row"><span class="dl">時間</span><span class="dd">1回 30分〜1時間</span></div>
+          <div class="detail-row"><span class="dl">特典</span><span class="dd">授業後に内容PDF＋宿題をお送り</span></div>
+        </div>
+      </div>
+      <div class="detail-card">
+        <div class="detail-card-head">💴 料金・お支払い</div>
+        <div class="detail-body">
+          <div class="detail-row"><span class="dl">料金</span><span class="dd"><strong>6,000円</strong> / 1時間あたり</span></div>
+          <div class="detail-row"><span class="dl">請求</span><span class="dd">月末締めで請求書をお送り</span></div>
+          <div class="detail-row"><span class="dl">支払い</span><span class="dd">Stripeにてお支払い（クレジットカード）</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LINKS -->
+<section class="links" id="links">
+  <div class="inner">
+    <div class="sec-tag">LINKS</div>
+    <h2 class="sec-title">発信・外部リンク</h2>
+    <p class="sec-sub">算数・教育について日々発信しています。お気軽にフォローしてください。</p>
+    <div class="links-grid">
+      <a href="https://note.com/sachi_edu" target="_blank" class="link-card">
+        <div class="link-icon">📓</div>
+        <div class="link-name">note</div>
+        <p class="link-desc">中学受験算数の解説コラム、親としての子育て記録、計算指導ノートなどを執筆しています。</p>
+        <div class="link-arrow">noteを読む →</div>
+      </a>
+      <a href="https://x.com/SachiMath" target="_blank" class="link-card">
+        <div class="link-icon">𝕏</div>
+        <div class="link-name">X（旧Twitter）</div>
+        <p class="link-desc">算数の考え方・教育観・学習のヒントを日々ポスト。指導の裏側もときどき発信しています。</p>
+        <div class="link-arrow">Xをフォローする →</div>
+      </a>
+      <a href="https://lin.ee/kyzOeI2" target="_blank" class="link-card">
+        <div class="link-icon">💬</div>
+        <div class="link-name">公式LINE</div>
+        <p class="link-desc">お問い合わせ・ご相談はLINEでも受け付けています。スポット授業の空き情報もLINEでお知らせします。</p>
+        <div class="link-arrow">LINEで問い合わせる →</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="contact">
+  <div class="cta-bg"></div>
+  <div class="cta-inner">
+    <div class="sec-tag">CONTACT</div>
+    <h2 class="sec-title">まずは1回、気軽にどうぞ。</h2>
+    <p class="cta-sub">
+      苦手な単元だけ、試しに1回だけ、どんな理由でも大丈夫です。
+    </p>
+    <p class="cta-note">空きが出たときにすぐ受けたい方は、公式LINEに登録しておくと便利です。</p>
+    <div class="cta-btns">
+      <a href="https://lin.ee/kyzOeI2" target="_blank" class="btn-white cta-apply-btn">スポット授業を申し込む（LINEへ）</a>
+    </div>
+    <div class="contact-links">
+      <a href="https://lin.ee/kyzOeI2" target="_blank" class="contact-link">💬 公式LINE（空き情報を受け取る）</a>
+      <a href="https://x.com/SachiMath" target="_blank" class="contact-link">𝕏 X（旧Twitter）</a>
+    </div>
+  </div>
+</section>
+
+<!-- 管理パネル（さちさん専用・訪問者には見えません） -->
+<div id="admin-panel" style="
+  position: fixed; bottom: 20px; right: 20px; z-index: 9999;
+  background: white; border: 2px solid var(--border);
+  border-radius: 16px; padding: 16px 20px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+  font-family: 'Noto Sans JP', sans-serif;
+  min-width: 220px;
+">
+  <div style="font-size:0.72rem; color:var(--text-light); font-weight:700; letter-spacing:0.08em; margin-bottom:10px;">🔧 受付状況の切り替え</div>
+  <div style="display:flex; gap:8px;">
+    <button id="btn-open" onclick="setOpen()" style="
+      flex:1; padding:8px; border-radius:8px; border:none; cursor:pointer;
+      font-size:0.82rem; font-family:inherit; transition:all 0.2s;
+    ">✅ 受付中</button>
+    <button id="btn-closed" onclick="setClosed()" style="
+      flex:1; padding:8px; border-radius:8px; border:none; cursor:pointer;
+      font-size:0.82rem; font-family:inherit; transition:all 0.2s;
+    ">🚫 停止中</button>
+  </div>
+  <div style="font-size:0.7rem; color:var(--text-light); margin-top:8px; line-height:1.6;">
+    切り替えると全箇所に自動反映されます
+  </div>
+</div>
+
+<footer>
+  <p>© さち算数オンライン教室</p>
+</footer>
+
+<script>
+  // =====================================================
+  // 受付状況の管理
+  // =====================================================
+  const LINE_URL = 'https://lin.ee/kyzOeI2'; // LINEのURL
+
+  // 受付状況をlocalStorageから読み込む（デフォルト：受付中）
+  let isOpen = localStorage.getItem('spotStatus') !== 'closed';
+
+  function applyStatus(open) {
+    // バナー
+    document.querySelector('.banner-open').style.display = open ? 'flex' : 'none';
+    document.querySelector('.banner-closed').style.display = open ? 'none' : 'flex';
+
+    // ヒーローカードのステータス
+    document.querySelectorAll('.status-open').forEach(el => el.style.display = open ? 'inline-flex' : 'none');
+    document.querySelectorAll('.status-closed').forEach(el => el.style.display = open ? 'none' : 'inline-flex');
+
+    // スポットセクションのステータス行
+    const statusRow = document.querySelector('.spot-status-row');
+    if (statusRow) {
+      statusRow.style.background = open ? 'var(--open-bg)' : '#fce4ec';
+      statusRow.style.borderColor = open ? 'var(--open-border)' : '#f48fb1';
+      document.querySelector('.spot-status-label').textContent = open
+        ? 'スポット授業の空きが出たため、現在お申し込みを受け付けています。'
+        : '現在スポット授業は受付停止中です。空きが出次第このページでお知らせします。';
+    }
+
+    // 申込みボタン（受付中→LINE、停止中→LINE空き待ち）
+    document.querySelectorAll('.apply-btn').forEach(btn => {
+      btn.href = LINE_URL;
+      btn.textContent = open ? '申し込む（LINEへ）→' : '空きが出たら通知を受け取る（LINE）→';
+      btn.style.background = open ? 'var(--blue)' : '#888';
+    });
+
+    // CTAボタン
+    const ctaBtn = document.querySelector('.cta-apply-btn');
+    if (ctaBtn) {
+      ctaBtn.href = LINE_URL;
+      ctaBtn.textContent = open
+        ? 'スポット授業を申し込む（LINEへ）'
+        : '空きが出たら通知を受け取る（LINE登録）';
+    }
+
+    // 管理パネルのボタン表示
+    document.getElementById('btn-open').style.fontWeight = open ? '700' : '400';
+    document.getElementById('btn-open').style.background = open ? '#2e7d32' : '#eee';
+    document.getElementById('btn-open').style.color = open ? 'white' : '#333';
+    document.getElementById('btn-closed').style.fontWeight = open ? '400' : '700';
+    document.getElementById('btn-closed').style.background = open ? '#eee' : '#c62828';
+    document.getElementById('btn-closed').style.color = open ? '#333' : 'white';
+
+    // タイトルタグ
+    document.title = open
+      ? 'さち算数オンライン教室 | スポット授業（単発・1回）受付中'
+      : 'さち算数オンライン教室 | スポット授業（現在受付停止中）';
+  }
+
+  function setOpen() {
+    isOpen = true;
+    localStorage.setItem('spotStatus', 'open');
+    applyStatus(true);
+  }
+
+  function setClosed() {
+    isOpen = false;
+    localStorage.setItem('spotStatus', 'closed');
+    applyStatus(false);
+  }
+
+  // ページ読み込み時に状態を反映
+  applyStatus(isOpen);
+
+  // FAQ アコーディオン
+  document.querySelectorAll('.faq-q').forEach(q => {
+    q.addEventListener('click', () => {
+      const item = q.closest('.faq-item');
+      item.classList.toggle('open');
+    });
+  });
+</script>
+
+</body>
+</html>
