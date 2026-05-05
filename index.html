@@ -270,6 +270,18 @@
     }
     .spot-point-icon { font-size: 1.4rem; margin-bottom: 8px; }
     .spot-point-title { font-family: 'Noto Serif JP', serif; font-size: 0.88rem; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+    .spot-schedule {
+      margin-top: 24px; background: var(--blue-pale);
+      border: 1px solid var(--blue-light); border-radius: 14px; padding: 20px 24px;
+    }
+    .spot-schedule-title { font-weight: 700; color: var(--navy); margin-bottom: 10px; font-size: 0.92rem; }
+    .spot-schedule-list { margin: 0 0 10px 16px; padding: 0; font-size: 0.88rem; color: var(--text); line-height: 1.9; }
+    .spot-schedule-note { font-size: 0.82rem; color: var(--text-light); margin: 0 0 12px; }
+    .spot-schedule-evening {
+      margin-top: 12px; padding-top: 12px;
+      border-top: 1px solid var(--blue-light);
+      font-size: 0.85rem; color: var(--text); line-height: 1.7;
+    }
     .spot-point-text { font-size: 0.8rem; color: var(--text-mid); line-height: 1.65; }
 
     /* ===== ABOUT ===== */
@@ -558,7 +570,7 @@
       </div>
       <div class="card-row">
         <span class="card-label">時間</span>
-        <span class="card-val"><strong>45分</strong>・1回完結</span>
+        <span class="card-val"><strong>50分</strong>・1回完結</span>
       </div>
       <div class="card-row">
         <span class="card-label">対象</span>
@@ -568,10 +580,7 @@
         <span class="card-label">形式</span>
         <span class="card-val">Zoom＋オンラインホワイトボード</span>
       </div>
-      <div class="card-row">
-        <span class="card-label">契約</span>
-        <span class="card-val">定期契約なし・縛りなし</span>
-      </div>
+
       <!-- ★ 受付状況: status-open / status-closed を切り替える -->
       <div class="hero-status-box">
         <span class="hero-status-label">現在の受付状況</span>
@@ -602,19 +611,19 @@
       <div class="spot-main-top">
         <div>
           <div class="spot-badge">📚 単発・1回完結</div>
-          <div class="spot-main-title">スポット授業（45分）</div>
+          <div class="spot-main-title">スポット授業（50分）</div>
           <div class="spot-main-desc">
             どんな先生か試してみたい方や、特定の単元だけ教えてほしい方のための1回完結の授業です。
           </div>
           <div class="spot-meta-row">
-            <div class="spot-meta-item">時間：<strong>45分</strong></div>
+            <div class="spot-meta-item">時間：<strong>50分</strong></div>
             <div class="spot-meta-item">対象：<strong>小学生（中学受験算数）</strong></div>
             <div class="spot-meta-item">形式：<strong>Zoom＋オンラインホワイトボード</strong></div>
           </div>
         </div>
         <div class="spot-price-block">
           <div class="spot-price">¥6,000</div>
-          <div class="spot-price-sub">/ 45分・1回</div>
+          <div class="spot-price-sub">/ 50分・1回</div>
           <a href="https://lin.ee/kyzOeI2" target="_blank" class="spot-apply-btn apply-btn">申し込む（LINEへ）→</a>
         </div>
       </div>
@@ -623,7 +632,7 @@
         <div class="spot-point-item">
           <div class="spot-point-icon">🔓</div>
           <div class="spot-point-title">定期契約なし</div>
-          <div class="spot-point-text">1回きりでも大丈夫です。「続けたい」と思ったときに定期指導へ移行できます。</div>
+          <div class="spot-point-text">1回きりでも大丈夫です。お気軽にご利用ください。</div>
         </div>
         <div class="spot-point-item">
           <div class="spot-point-icon">🎯</div>
@@ -634,6 +643,20 @@
           <div class="spot-point-icon">💬</div>
           <div class="spot-point-title">事前相談無料</div>
           <div class="spot-point-text">お子さんの状況や、どんな授業になるかを事前にLINEでご確認いただけます。</div>
+        </div>
+      </div>
+
+      <div class="spot-schedule">
+        <div class="spot-schedule-title">🕐 授業可能な時間帯（目安）</div>
+        <ul class="spot-schedule-list">
+          <li>平日午前（北米在住の方歓迎）</li>
+          <li>水曜午後</li>
+          <li>その他、不定期で空き枠が出ることがあります</li>
+        </ul>
+        <p class="spot-schedule-note">まずはLINEでお気軽にお問い合わせください。</p>
+        <div class="spot-schedule-evening">
+          <strong>夜の時間帯をご希望の方へ</strong><br>
+          現在満席ですが、既存の生徒さんの都合により空きが出ることがあります。ご希望の場合はLINEでお知らせください。
         </div>
       </div>
     </div>
@@ -743,29 +766,37 @@
       <div class="flow-item">
         <div class="flow-circle">01</div>
         <div class="flow-body">
-          <div class="flow-time">申込み当日〜翌営業日</div>
-          <div class="flow-title">公式LINEに登録・メッセージを送る</div>
-          <p class="flow-text">LPの「申し込む」ボタンから公式LINEに登録してください。自動メッセージに沿って、お子さんの学年・通っている塾・相談したい単元をお送りください。</p>
+          <div class="flow-time">お申し込み</div>
+          <div class="flow-title">LINEで「スポット授業希望」と送る</div>
+          <p class="flow-text">下の「申し込む」ボタンからLINEを開き、「スポット授業希望」とメッセージを送ってください。</p>
         </div>
       </div>
       <div class="flow-item">
         <div class="flow-circle">02</div>
         <div class="flow-body">
-          <div class="flow-time">内容確認後</div>
-          <div class="flow-title">さちから日程のご提案</div>
-          <p class="flow-text">いただいた内容を確認の上、空き日時をLINEでご案内します。ご希望に合わせて日程を確定します。</p>
+          <div class="flow-time">メッセージ確認後</div>
+          <div class="flow-title">日程のすり合わせ</div>
+          <p class="flow-text">さちから空き日時をLINEでご案内します。ご希望に合わせて授業日程を確定します。</p>
         </div>
       </div>
       <div class="flow-item">
         <div class="flow-circle">03</div>
         <div class="flow-body">
           <div class="flow-time">日程確定後</div>
-          <div class="flow-title">お支払い（Stripe）</div>
-          <p class="flow-text">LINEにてStripeの支払いリンクをお送りします。クレジットカードにてお支払いをお願いします（6,000円）。</p>
+          <div class="flow-title">お子さんの状況・単元のご相談</div>
+          <p class="flow-text">お子さんの学年・通っている塾・相談したい単元などをLINEでお聞きします。授業内容を事前に一緒に整理しておきます。</p>
         </div>
       </div>
       <div class="flow-item">
         <div class="flow-circle">04</div>
+        <div class="flow-body">
+          <div class="flow-time">授業前日まで</div>
+          <div class="flow-title">お支払い（PayPal）</div>
+          <p class="flow-text">LINEにてPayPalの支払いリンクをお送りします。お支払いをもって予約確定となります（6,000円）。</p>
+        </div>
+      </div>
+      <div class="flow-item">
+        <div class="flow-circle">05</div>
         <div class="flow-body">
           <div class="flow-time">授業前日まで</div>
           <div class="flow-title">環境・機材の準備</div>
@@ -773,25 +804,25 @@
         </div>
       </div>
       <div class="flow-item">
-        <div class="flow-circle">05</div>
+        <div class="flow-circle">06</div>
         <div class="flow-body">
           <div class="flow-time">当日</div>
-          <div class="flow-title">Zoomで授業スタート（45分）</div>
+          <div class="flow-title">Zoomで授業スタート（50分）</div>
           <p class="flow-text">ZoomリンクからPCで入室。タブレットでオンラインホワイトボードを開いて授業開始です。お子さんのペースに合わせて進めます。</p>
         </div>
       </div>
       <div class="flow-item">
-        <div class="flow-circle">06</div>
+        <div class="flow-circle">07</div>
         <div class="flow-body">
           <div class="flow-time">授業後</div>
           <div class="flow-title">資料・宿題をお届け</div>
-          <p class="flow-text">授業内容のPDFと宿題をLINEでお送りします。定期指導をご希望の場合は、空き状況に応じてご案内します。</p>
+          <p class="flow-text">授業内容のPDFと宿題をLINEでお送りします。</p>
         </div>
       </div>
     </div>
     <div class="flow-note">
       <strong>📌 キャンセル・変更について</strong><br>
-      <strong>前日まで：</strong>日程変更は無料（1回まで）。キャンセルの場合はStripeの決済手数料（3.6%）を除いた金額を返金します。<br>
+      <strong>前日まで：</strong>日程変更は無料（1回まで）。キャンセルの場合はPayPalの決済手数料を除いた金額を返金します。<br>
       <strong>当日：</strong>返金はできませんが、振替対応いたします。<br>
       <strong>さち都合のキャンセル：</strong>全額返金いたします。
     </div>
@@ -812,7 +843,7 @@
           <div class="faq-arrow">▼</div>
         </div>
         <div class="faq-a">
-          <strong>前日まで：</strong>日程変更は無料で承ります（1回まで）。キャンセルの場合はStripeの決済手数料（3.6%）を除いた金額を返金します。<br><br>
+          <strong>前日まで：</strong>日程変更は無料で承ります（1回まで）。キャンセルの場合はPayPalの決済手数料を除いた金額を返金します。<br><br>
           <strong>当日：</strong>返金はできませんが、振替対応いたします。<br><br>
           ※万が一さち都合でのキャンセルとなった場合、全額返金いたします。
         </div>
@@ -854,34 +885,6 @@
   </div>
 </section>
 
-<!-- DETAIL（定期指導はコンパクトに） -->
-<section class="detail" id="detail">
-  <div class="inner">
-    <div class="sec-tag">REGULAR LESSON</div>
-    <h2 class="sec-title">定期指導について</h2>
-    <p class="sec-sub">スポット授業を受けていただいた後、ご希望の方には定期指導をご案内しています。</p>
-    <div class="detail-grid">
-      <div class="detail-card">
-        <div class="detail-card-head">📚 指導内容</div>
-        <div class="detail-body">
-          <div class="detail-row"><span class="dl">対象</span><span class="dd">小学生</span></div>
-          <div class="detail-row"><span class="dl">科目</span><span class="dd">中学受験算数</span></div>
-          <div class="detail-row"><span class="dl">形式</span><span class="dd">毎週決まった曜日・時間の定期指導</span></div>
-          <div class="detail-row"><span class="dl">時間</span><span class="dd">1回 30分〜1時間</span></div>
-          <div class="detail-row"><span class="dl">特典</span><span class="dd">授業後に内容PDF＋宿題をお送り</span></div>
-        </div>
-      </div>
-      <div class="detail-card">
-        <div class="detail-card-head">💴 料金・お支払い</div>
-        <div class="detail-body">
-          <div class="detail-row"><span class="dl">料金</span><span class="dd"><strong>6,000円</strong> / 1時間あたり</span></div>
-          <div class="detail-row"><span class="dl">請求</span><span class="dd">月末締めで請求書をお送り</span></div>
-          <div class="detail-row"><span class="dl">支払い</span><span class="dd">Stripeにてお支払い（クレジットカード）</span></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- LINKS -->
 <section class="links" id="links">
