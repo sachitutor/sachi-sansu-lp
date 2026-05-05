@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>リッチメニュー デザイン</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Noto+Serif+JP:wght@700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #ddd; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; gap: 16px; font-family: 'Noto Sans JP', sans-serif; }
+    .label { font-size: 13px; color: #555; }
+
+    .richmenu {
+      width: 1250px;  /* 2500px の半分で表示 */
+      height: 421px;  /* 843px の半分 */
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      overflow: hidden;
+      border-radius: 16px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.25);
+    }
+
+    .cell {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      padding: 32px 20px;
+    }
+
+    .cell::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255,255,255,0);
+      transition: background 0.2s;
+    }
+    .cell:hover::after { background: rgba(255,255,255,0.08); }
+
+    /* 区切り線 */
+    .cell:not(:last-child) {
+      border-right: 1px solid rgba(255,255,255,0.2);
+    }
+
+    /* LP セル */
+    .cell-lp {
+      background: linear-gradient(145deg, #0f2d5e 0%, #1a56b0 100%);
+    }
+
+    /* X セル */
+    .cell-x {
+      background: linear-gradient(145deg, #1a3f6b 0%, #0f2d5e 100%);
+    }
+
+    /* note セル */
+    .cell-note {
+      background: linear-gradient(145deg, #1a56b0 0%, #2a6dd4 100%);
+    }
+
+    .cell-icon {
+      font-size: 48px;
+      line-height: 1;
+    }
+
+    .cell-title {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: white;
+      letter-spacing: 0.04em;
+      text-align: center;
+    }
+
+    .cell-sub {
+      font-size: 14px;
+      color: rgba(255,255,255,0.65);
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    .cell-arrow {
+      font-size: 13px;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.06em;
+      margin-top: 4px;
+    }
+
+    .note-hint {
+      font-size: 12px;
+      color: #888;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="label">▼ リッチメニュー プレビュー（実際の半分サイズで表示）</div>
+
+  <div class="richmenu">
+    <div class="cell cell-lp">
+      <div class="cell-icon">🌐</div>
+      <div class="cell-title">スポット授業 詳細</div>
+      <div class="cell-sub">授業の詳細・料金・<br>申し込みはこちら</div>
+      <div class="cell-arrow">タップで開く →</div>
+    </div>
+    <div class="cell cell-x">
+      <div class="cell-icon">𝕏</div>
+      <div class="cell-title">X（Twitter）</div>
+      <div class="cell-sub">算数・教育について<br>日々発信中</div>
+      <div class="cell-arrow">タップで開く →</div>
+    </div>
+    <div class="cell cell-note">
+      <div class="cell-icon">📓</div>
+      <div class="cell-title">note</div>
+      <div class="cell-sub">中学受験算数の解説<br>コラムを執筆中</div>
+      <div class="cell-arrow">タップで開く →</div>
+    </div>
+  </div>
+
+  <div class="note-hint">このページをブラウザで開き、リッチメニュー部分をスクリーンショットして使用してください。</div>
+
+</body>
+</html>
