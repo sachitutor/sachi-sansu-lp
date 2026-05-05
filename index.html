@@ -935,30 +935,6 @@
   </div>
 </section>
 
-<!-- 管理パネル（さちさん専用・訪問者には見えません） -->
-<div id="admin-panel" style="
-  position: fixed; bottom: 20px; right: 20px; z-index: 9999;
-  background: white; border: 2px solid var(--border);
-  border-radius: 16px; padding: 16px 20px;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.15);
-  font-family: 'Noto Sans JP', sans-serif;
-  min-width: 220px;
-">
-  <div style="font-size:0.72rem; color:var(--text-light); font-weight:700; letter-spacing:0.08em; margin-bottom:10px;">🔧 受付状況の切り替え</div>
-  <div style="display:flex; gap:8px;">
-    <button id="btn-open" onclick="setOpen()" style="
-      flex:1; padding:8px; border-radius:8px; border:none; cursor:pointer;
-      font-size:0.82rem; font-family:inherit; transition:all 0.2s;
-    ">✅ 受付中</button>
-    <button id="btn-closed" onclick="setClosed()" style="
-      flex:1; padding:8px; border-radius:8px; border:none; cursor:pointer;
-      font-size:0.82rem; font-family:inherit; transition:all 0.2s;
-    ">🚫 停止中</button>
-  </div>
-  <div style="font-size:0.7rem; color:var(--text-light); margin-top:8px; line-height:1.6;">
-    切り替えると全箇所に自動反映されます
-  </div>
-</div>
 
 <footer>
   <p>© さち算数オンライン教室</p>
