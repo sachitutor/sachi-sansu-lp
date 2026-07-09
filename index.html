@@ -551,7 +551,7 @@
         スポット授業（単発・1回）受付中。
       </p>
       <div class="hero-btns">
-        <a href="https://lin.ee/kyzOeI2" target="_blank" class="btn-main apply-btn">
+        <a href="https://lin.ee/kyzOeI2" target="_blank" class="btn-main apply-btn" data-ga-label="hero">
           申し込む（LINEへ）→
         </a>
         <a href="#about" class="btn-sub">先生を知る →</a>
@@ -606,7 +606,7 @@
         <div class="spot-price-block">
           <div class="spot-price">¥6,000</div>
           <div class="spot-price-sub">/ 50分・1回</div>
-          <a href="https://lin.ee/kyzOeI2" target="_blank" class="spot-apply-btn apply-btn">申し込む（LINEへ）→</a>
+          <a href="https://lin.ee/kyzOeI2" target="_blank" class="spot-apply-btn apply-btn" data-ga-label="spot">申し込む（LINEへ）→</a>
         </div>
       </div>
 
@@ -886,7 +886,7 @@
         <p class="link-desc">算数の考え方・教育観・学習のヒントを日々ポスト。指導の裏側もときどき発信しています。</p>
         <div class="link-arrow">Xをフォローする →</div>
       </a>
-      <a href="https://lin.ee/kyzOeI2" target="_blank" class="link-card">
+      <a href="https://lin.ee/kyzOeI2" target="_blank" class="link-card" data-ga-label="links">
         <div class="link-icon">💬</div>
         <div class="link-name">公式LINE</div>
         <p class="link-desc">お問い合わせ・ご相談はLINEでも受け付けています。スポット授業の空き情報もLINEでお知らせします。</p>
@@ -906,10 +906,10 @@
       苦手な単元だけ、試しに1回だけ、どんな理由でも大丈夫です。
     </p>
     <div class="cta-btns">
-      <a href="https://lin.ee/kyzOeI2" target="_blank" class="btn-white cta-apply-btn">スポット授業を申し込む（LINEへ）</a>
+      <a href="https://lin.ee/kyzOeI2" target="_blank" class="btn-white cta-apply-btn" data-ga-label="cta">スポット授業を申し込む（LINEへ）</a>
     </div>
     <div class="contact-links">
-      <a href="https://lin.ee/kyzOeI2" target="_blank" class="contact-link">💬 公式LINE</a>
+      <a href="https://lin.ee/kyzOeI2" target="_blank" class="contact-link" data-ga-label="footer_line">💬 公式LINE</a>
       <a href="https://x.com/SachiMath" target="_blank" class="contact-link">𝕏 X（旧Twitter）</a>
     </div>
   </div>
@@ -926,6 +926,16 @@
     q.addEventListener('click', () => {
       const item = q.closest('.faq-item');
       item.classList.toggle('open');
+    });
+  });
+
+  // LINEリンク クリック計測
+  document.querySelectorAll('[data-ga-label]').forEach(el => {
+    el.addEventListener('click', () => {
+      gtag('event', 'line_click', {
+        event_category: 'LINE',
+        event_label: el.dataset.gaLabel
+      });
     });
   });
 </script>
